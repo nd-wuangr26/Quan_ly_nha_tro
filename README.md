@@ -148,6 +148,8 @@ BEGIN
 
 END;
 ```
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/f5480971-0264-4a90-9d72-0402f556b9b0)
+
 2. PROCEDURE xóa phòng
 
 ```sql
@@ -159,6 +161,7 @@ BEGIN
    DELETE FROM Phong WHERE MaPhong = @MaPhong;
 END;
 ```
+
 3. PROCEDURE sửa thông tin phòng
 
 ```sql
@@ -330,6 +333,8 @@ BEGIN
     WHERE TinhTrang = 'Trong';
 END;
 ```
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/8089581d-16e6-44e9-a97a-5d35ebc2ba10)
+
 
 11. Sử dụng trigger và cursor cập nhật thông tin phòng sau khi sửa hợp đồng
 
