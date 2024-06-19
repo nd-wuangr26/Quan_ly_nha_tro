@@ -37,25 +37,57 @@ Vấn đề đặt ra là nhà trọ Công Minh tại tổ 4 Phú Xá, tỉnh Th
    
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/87208916-b692-4c05-bea7-690bb423c20c)
  
-Thiết lập MaNguoiDung làm PrimaryKey.
+Thiết lập MaNguoiDung làm PrimaryKey để xác định chỉ người dùng duy nhất. Các kiểu giá trị trong các thành phần của bảng:
+
+- STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+- MaNguoiDung là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+- HoTen là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự.
+- GioiTinh là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự.
+- NgaySinh là kiểu giá trị Date để có nhập giá trị ngày tháng.
+- SDT là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự
+- DiaChi là kiểu giá trị NVARCHAR(100) để có nhập giá trị kiểu chuỗi ký tự
+
 
 2. Bảng phòng:
 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/a36fbe30-bdfb-4024-8eed-2c6779400e79)
 
-Thiết lập MaPhong làm PrimaryKey.
+Thiết lập MaPhong làm PrimaryKey để xác định chỉ có phòng duy nhất. Các kiểu giá trị trong các thành phần của bảng:
 
+-  STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+-  MaPhong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+-  SoPhong kiểu giá trị là INT để có thể nhập theo số nguyên dương mình nhập.
+-  LoaiPhong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự.
+-  GiaPhong kiểu giá trị là INT để có thể nhập giá trị số nguyên dương.
+-  TinhTrang là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự.
+  
+  
 3. Bảng hợp đồng:
 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/22c7023f-7b28-4c74-8d24-ce1894c8b9a6)
 
-Thiết lập MaHopDong làm PrimaryKey. Thiết lập MaPhong, MaNguoiDung làm ForeignKey. Dựa vào FK có thể tham chiếu giá trị từ 2 bảng đến bảng hợp đồng.
+Thiết lập MaHopDong làm PrimaryKey để xác định gia trị duy nhất của mỗi hợp đồng. Thiết lập MaPhong, MaNguoiDung làm ForeignKey. Dựa vào FK có thể tham chiếu giá trị từ 2 bảng đến bảng hợp đồng. Các kiểu giá trị trong các thành phần của bảng: 
+
+- STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+- MaHopDong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+- MaPhong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và có yêu cầu đúng giá trị khi tham chiếu từ bảng Phong.
+- MaNguoiDung là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và có yêu cầu đúng giá trị khi tham chiếu từ bảng NguoiThue.
+- NgayBatDau là kiểu giá trị Date để có nhập giá trị ngày tháng.
+- NgayKetThuc là kiểu giá trị Date để có nhập giá trị ngày tháng.
+- TienCoc là kiểu giá trị INT để nhập giá trị nguyên dương.
+- SoTienThue là kiểu giá trị INT để nhập giá trị nguyên dương.
+- TinhTrang là kiểu giá trị NVARCHAR(50) để có thể nhập giá trị chuỗi ký tự.
+
 
 4. Bảng thanh toán:
 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/7bf0f748-4abe-4c50-a2f9-1386b4ce3478)
 
-Thiết lập MaThanhToan làm PrimaryKey. Thiết lập MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng.
+Thiết lập MaThanhToan làm PrimaryKey để giá trị duy nhất của mỗi thanh toán. Thiết lập MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng. Các kiểu giá trị trong các thành phần của bảng: 
+
+- STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+- MaThanhToan là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+- 
 
 5. Bảng dịch vụ:
 
@@ -71,7 +103,11 @@ Thiết lập MaSuDung làm PrimaryKey. Thiết lập MaDichVu, MaHopDong làm F
 
 7. Sơ đồ thực thể:
 
+Từ những PK và FK của các bảng thiết lập được mối quan hệ của sơ đồ thực thể.
+
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/60c3175e-7277-48d2-a8c3-aadac0d61404)
+
+
 
 
 
