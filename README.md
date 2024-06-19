@@ -33,5 +33,61 @@ Vấn đề đặt ra là nhà trọ Công Minh tại tổ 4 Phú Xá, tỉnh Th
 
 **3. Các bảng thông tin**
 
-- Bảng người thuê:
+1. Bảng người thuê:
+   
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/87208916-b692-4c05-bea7-690bb423c20c)
+ 
+Thiết lập MaNguoiDung làm PrimaryKey.
+
+2. Bảng phòng:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/a36fbe30-bdfb-4024-8eed-2c6779400e79)
+
+Thiết lập MaPhong làm PrimaryKey.
+
+3. Bảng hợp đồng:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/22c7023f-7b28-4c74-8d24-ce1894c8b9a6)
+
+Thiết lập MaHopDong làm PrimaryKey. Thiết lập MaPhong, MaNguoiDung làm ForeignKey. Dựa vào FK có thể tham chiếu giá trị từ 2 bảng đến bảng hợp đồng.
+
+4. Bảng thanh toán:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/7bf0f748-4abe-4c50-a2f9-1386b4ce3478)
+
+Thiết lập MaThanhToan làm PrimaryKey. Thiết lập MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng.
+
+5. Bảng dịch vụ:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/4e7ef765-2cec-4f8d-af11-84dc08ad4b16)
+
+Thiết lập MaDichVu làm PrimaryKey.
+
+6. Bảng sử dụng dịch vụ:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/7d73ef34-f2f6-40c5-add4-4e2443bf002c)
+
+Thiết lập MaSuDung làm PrimaryKey. Thiết lập MaDichVu, MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng và dịch vụ.
+
+7. Sơ đồ thực thể:
+
+![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/60c3175e-7277-48d2-a8c3-aadac0d61404)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
