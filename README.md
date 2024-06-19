@@ -87,19 +87,37 @@ Thiết lập MaThanhToan làm PrimaryKey để giá trị duy nhất của mỗ
 
 - STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
 - MaThanhToan là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
-- 
+- MaHopDong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và có yêu cầu đúng giá trị khi tham chiếu từ bảng HopDong.
+- NgayThanhToan là kiểu giá trị Date để có nhập giá trị ngày tháng.
+- SoTien là kiểu giá trị INT để nhập giá trị nguyên dương.
+- CachThuc là kiểu giá trị NVARCHAR(50) để có thể nhập giá trị chuỗi ký tự.
+
 
 5. Bảng dịch vụ:
 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/4e7ef765-2cec-4f8d-af11-84dc08ad4b16)
 
-Thiết lập MaDichVu làm PrimaryKey.
+Thiết lập MaDichVu làm PrimaryKey để giá trị duy nhất của mỗi dịch vụ. Các kiểu giá trị trong các thành phần của bảng: 
+
+- STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+- MaDichVu là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+- TenDichVu là kiểu giá trị NVARCHAR(50) để có thể nhập giá trị chuỗi ký tự.
+- Gia là kiểu giá trị INT để nhập giá trị nguyên dương.
+
 
 6. Bảng sử dụng dịch vụ:
 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/7d73ef34-f2f6-40c5-add4-4e2443bf002c)
 
-Thiết lập MaSuDung làm PrimaryKey. Thiết lập MaDichVu, MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng và dịch vụ.
+Thiết lập MaSuDung làm PrimaryKey để giá trị duy nhất của mỗi sử dụng dịch vụ. Thiết lập MaDichVu, MaHopDong làm ForignKey để tham chiếu bảng từ bảng hợp đồng và dịch vụ. Các kiểu giá trị thành phần của bảng: 
+
+- STT kiểu giá trị là INT để có thể tăng dần theo số lượng mình nhập.
+- MaSuDung là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và nó là PK nên không thể được để dạng NULL.
+- MaDichVu là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và có yêu cầu đúng giá trị khi tham chiếu từ bảng DichVu.
+- MaHopDong là kiểu giá trị NVARCHAR(50) để có nhập giá trị kiểu chuỗi ký tự và có yêu cầu đúng giá trị khi tham chiếu từ bảng HopDong.
+- NgaySuDung là kiểu giá trị Date để có nhập giá trị ngày tháng.
+- SoLuong là kiểu giá trị INT để nhập giá trị nguyên dương.
+
 
 7. Sơ đồ thực thể:
 
@@ -108,21 +126,275 @@ Từ những PK và FK của các bảng thiết lập được mối quan hệ 
 ![image](https://github.com/nd-wuangr26/Quan_ly_nha_tro/assets/166006721/60c3175e-7277-48d2-a8c3-aadac0d61404)
 
 
+**4. Các SP chức năng**
 
+1. PROCEDURE thêm phòng mới
 
+```sql
+-- Thêm phòng mới--
+CREATE PROCEDURE ThemPhong
+    @STT INT,
+    @MaPhong NVARCHAR(50),
+    @SoPhong INT,
+    @LoaiPhong NVARCHAR(50),
+	@GiaPhong INT,
+	@TinhTrang NVARCHAR(50)
+AS
+BEGIN
+    
+     
+    INSERT INTO Phong(STT, MaPhong,SoPhong , LoaiPhong, GiaPhong, TinhTrang)
+    VALUES (@STT, @MaPhong, @SoPhong, @LoaiPhong, @GiaPhong, @TinhTrang);
 
+END;
+```
+2. PROCEDURE xóa phòng
 
+```sql
+--- Xoa phong ---
+CREATE PROCEDURE XoaPhong
+@MaPhong INT
+AS
+BEGIN
+   DELETE FROM Phong WHERE MaPhong = @MaPhong;
+END;
+```
+3. PROCEDURE sửa thông tin phòng
 
+```sql
+--- Sua thong tin phong ----
+CREATE PROCEDURE SuaThongPhong
+   
+    
+    @MaPhong NVARCHAR(50),
+    @SoPhong INT,
+    @LoaiPhong NVARCHAR(50),
+	@GiaPhong INT,
+	@TinhTrang NVARCHAR(50)
+AS
+BEGIN
+    UPDATE Phong
+    SET SoPhong = @SoPhong,
+		LoaiPhong = @LoaiPhong,
+		GiaPhong = @GiaPhong,
+		TinhTrang = @TinhTrang
+		
+    WHERE MaPhong = @MaPhong;
+END;
+```
+4. PROCEDURE thêm người thuê mới
 
+```sql
+-- Them nguoi thue moi --
 
+CREATE PROCEDURE ThemNguoiThue
+    @STT INT,
+    @MaNguoiDung NVARCHAR(50),
+    @Hoten NVARCHAR(50),
+	@GioiTinh NVARCHAR(50),
+	@NgaySinh Date,
+	@SDT NVARCHAR(50),
+	@Diachi NVARCHAR(50)
+AS
+BEGIN
+    
+     
+    INSERT INTO NguoiThue(STT, MaNguoiDung, HoTen, GioiTinh, NgaySinh, SDT, DiaChi)
+    VALUES (@STT, @MaNguoiDung, @Hoten, @GioiTinh, @NgaySinh, @SDT, @Diachi);
 
+END;
+```
 
+5. PROCEDURE xóa người thuê
+```sql
+--- Xoa nguoi thue ---
+CREATE PROCEDURE XoaNguoiThue
+@MaNguoiDung INT
+AS
+BEGIN
+   DELETE FROM NguoiThue WHERE MaNguoiDung = @MaNguoiDung;
+END;
+```
 
+6. PROCEDURE sửa thông tin người thuê
 
+```sql
+--- Sua thong tin nguoi thue ----
+CREATE PROCEDURE SuaThongNguoiThue
+   
+    @MaNguoiDung NVARCHAR(50),
+    @Hoten NVARCHAR(50),
+	@GioiTinh NVARCHAR(50),
+	@NgaySinh Date,
+	@SDT NVARCHAR(50),
+	@Diachi NVARCHAR(50)
+AS
+BEGIN
+    UPDATE NguoiThue
+    SET HoTen = @Hoten,
+		GioiTinh = @GioiTinh,
+		NgaySinh = @NgaySinh,
+		SDT = @SDT,
+		DiaChi = @Diachi
+    WHERE MaNguoiDung = @MaNguoiDung;
+END;
+```
+7. PROCEDURE thêm hợp đồng
 
+```sql
+--- Them hop dong -----
+CREATE PROCEDURE ThemHopDong
+    @STT INT,
+    @MaHopDong NVARCHAR(50),
+    @MaNguoiDung NVARCHAR(50),
+	@MaPhong NVARCHAR(50),
+	@NgayBatDau Date,
+	@NgayKetThuc Date,
+	@TienCoc INT,
+	@SoTienThue INT,
+	@TrangThai NVARCHAR(50)
+AS
+BEGIN
 
+    IF @MaPhong IS NULL OR @MaNguoiDung IS NULL
+    BEGIN
+        RAISERROR('Loi gia tri ID null', 16, 1);
+        RETURN;
+    END
 
+    IF @NgayBatDau >= @NgayKetThuc
+    BEGIN
+        RAISERROR('Loi gia tri ngay', 16, 1);
+        RETURN;
+    END
+     
+    INSERT INTO HopDong(STT, MaHopDong, MaNguoiDung, MaPhong, NgayBatDau, NgayKetThuc, TienCoc, SoTienThue, TinhTrang )
+    VALUES (@STT,@MaHopDong, @MaNguoiDung, @MaPhong, @NgayBatDau, @NgayKetThuc, @TienCoc, @SoTienThue, @TrangThai);
 
+END;
+```
+8. PROCEDURE xóa hợp đồng
+
+```sql
+--- Xoa hop dong ------
+
+CREATE PROCEDURE XoaHopDong
+@MaHopDong INT
+AS
+BEGIN
+   DELETE FROM HopDong WHERE MaHopDong = @MaHopDong;
+END;
+``` 
+
+9. PROCEDURE sửa thông tin hợp đồng
+
+```sql
+----- Sua thong tin hop dong --------
+
+CREATE PROCEDURE SuaThongTinHopDong
+   
+
+    @MaHopDong NVARCHAR(50),
+    @MaNguoiDung NVARCHAR(50),
+	@MaPhong NVARCHAR(50),
+	@NgayBatDau Date,
+	@NgayKetThuc Date,
+	@TienCoc INT,
+	@SoTienThue INT,
+	@TrangThai NVARCHAR(50)
+AS
+BEGIN
+    UPDATE HopDong
+    SET 
+		MaNguoiDung = @MaNguoiDung,
+		MaPhong = @MaPhong,
+		NgayBatDau = @NgayBatDau,
+		NgayKetThuc = @NgayKetThuc,
+		TienCoc = @TienCoc,
+		SoTienThue = @SoTienThue
+		TinhTrang = @TrangThai
+    WHERE MaHopDong = @MaHopDong;
+END;
+```   
+
+10. PROCEDURE báo cáo số lượng phòng còn trống
+
+```sql
+--- Bao cao so luong phong trong ----------
+CREATE PROCEDURE BaoCao
+	
+AS
+BEGIN
+    SELECT *
+    FROM Phong
+    WHERE TinhTrang = 'Trong';
+END;
+```
+
+11. Sử dụng trigger và cursor cập nhật thông tin phòng sau khi sửa hợp đồng
+
+```sql
+------- Su dung Trigger ket hop Cursor de cap nhat hop dong  -------
+
+CREATE TRIGGER CapNhatHopDong
+ON HopDong
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    DECLARE @MaPhong NVARCHAR(50);
+
+    -- Khai bao cursor khi them hoac cap nhat ----
+    DECLARE Contro CURSOR FOR
+    SELECT MaPhong
+	FROM inserted;
+
+    OPEN Contro;
+    FETCH NEXT FROM Contro INTO @MaPhong;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        ----- Cap nhat trang thai cua phong ------
+        UPDATE Phong
+        SET TinhTrang = CASE 
+            WHEN EXISTS (SELECT 1 FROM HopDong WHERE MaPhong = @MaPhong AND TrangThai = 'Con Han')
+                   THEN 'Cho thue'
+                   ELSE 'Trong'
+            END
+        WHERE MaPhong = @MaPhong;
+
+        FETCH NEXT FROM Contro INTO @MaPhong;
+    END
+
+    CLOSE Contro;
+    DEALLOCATE Contro;
+
+    -- Khai bao con tro khi xoa ---------
+    DECLARE ControXoa CURSOR FOR
+    SELECT MaPhong
+	FROM deleted;
+
+    OPEN ControXoa;
+    FETCH NEXT FROM ControXoa INTO @MaPhong;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        --------- Cap nhat trang thai cua phong ----------
+        UPDATE Phong
+        SET TinhTrang = CASE 
+              WHEN EXISTS (SELECT 1 FROM HopDong WHERE MaPhong = @MaPhong AND TrangThai = 'Con Han')
+                   THEN 'Cho thue'
+                   ELSE 'Trong'
+              END
+        WHERE MaPhong = @MaPhong;
+
+        FETCH NEXT FROM ControXoa INTO @MaPhong;
+    END
+
+    CLOSE ControXoa;
+    DEALLOCATE ControXoa;
+END;
+
+```
 
 
 
